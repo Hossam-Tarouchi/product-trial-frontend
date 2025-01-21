@@ -1,22 +1,83 @@
 <h1 class="text-center">Liste des produits</h1>
 
 <p-button label="Créer produit" (onClick)="onCreate()" class="block text-center"/>
-
 <p-dataView #dv [value]="products()">
     <ng-template pTemplate="list" let-products>
-        @for (product of products; track product) {
-            <p-card class="block mb-2">
-                <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
-                <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+        <!-- Flex container for inline cards -->
+        <div class="grid grid-nogutter justify-content">
+            <!-- Loop through each product and create a card -->
+            <ng-container *ngFor="let product of products">
+                <div 
+                    style="width: 300px; padding-right: 20px;" 
+                    [ngClass]="{'out-of-stock-card': product.inventoryStatus === 'OUTOFSTOCK'}">
+                    <p-card 
+                        class="p-col-12 p-md-4 p-lg-3 mb-3 unified-card-height" 
+                        [style.opacity]="product.inventoryStatus === 'OUTOFSTOCK' ? 0.5 : 1"
+                        [style.pointerEvents]="product.inventoryStatus === 'OUTOFSTOCK' ? 'none' : 'auto'">
+                        
+                        <!-- Product Header with Out of Stock and Low Stock Badges -->
+                        <ng-template pTemplate="header">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <img alt="Card" src="https://placehold.co/300" width="300" height="300">
+                                
+                                <!-- Badge for Out of Stock -->
+                                <p-badge *ngIf="product.inventoryStatus === 'OUTOFSTOCK'" 
+                                         value="OUT OF STOCK" 
+                                         severity="danger" 
+                                         class="p-m-2"></p-badge>
 
-                <ng-template pTemplate="footer">
-                    <div class="flex gap-3 mt-1">
-                        <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
-                        <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
-                    </div>
-                </ng-template>
-            </p-card>
-        }
+                                <!-- Badge for Low Stock -->
+                                <p-badge *ngIf="product.inventoryStatus === 'LOWSTOCK'" 
+                                         value="LOW STOCK" 
+                                         severity="warning" 
+                                         class="p-m-2" ></p-badge>
+                            </div>
+                        </ng-template>
+
+                        <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+                        <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+                        <div class="text-lg font-normal text-600 mt-2">{{ product.description }}</div>
+
+                        <!-- Display the price -->
+                        <div class="text-lg font-bold text-900 mt-2">
+                            {{ product.price | currency:'EUR':true }}
+                        </div>
+
+                        <!-- Display the product rating using p-rating -->
+                        <div class="flex mt-2">
+                            <p-rating [(ngModel)]="product.rating" 
+                                [readonly]="true" 
+                                [stars]="5" 
+                                cancel="false" 
+                                class="mr-2"></p-rating>
+                            <span class="text-sm text-600">{{ product.rating | number:'1.0-1' }}</span> <!-- Display numeric rating -->
+                        </div>
+
+                        <ng-template pTemplate="footer">
+                            <div class="flex gap-3 mt-1">
+                                <!-- Disable buttons if product is out of stock -->
+                                <p-button 
+                                    label="Modifier" 
+                                    severity="secondary" 
+                                    (onClick)="onUpdate(product)"
+                                    [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"/>
+                                <p-button 
+                                    label="Supprimer" 
+                                    severity="danger" 
+                                    (onClick)="onDelete(product)"
+                                    [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"/>
+
+                                <p-button 
+                                    label="Ajouter au panier" 
+                                    severity="success" 
+                                    (onClick)="addToCart(product)" 
+                                    [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"/>
+                            </div>
+                        </ng-template>
+                    </p-card>
+                </div>
+            </ng-container>
+        </div>
     </ng-template>
 </p-dataView>
 

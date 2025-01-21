@@ -15,16 +15,21 @@ import { MenuItem } from "primeng/api";
   export class PanelMenuComponent {
 
     public readonly items: MenuItem[] = [
-        {
-            label: 'Accueil',
-            icon: 'pi pi-home',
-            routerLink: ['/home']
-        },
-        {
-            label: 'Produits',
-            icon: 'pi pi-barcode',
-            routerLink: ['/products/list']
-        }
+      {
+          label: 'Accueil',
+          icon: 'pi pi-home',
+          routerLink: ['/home']
+      },
+      {
+        label: 'Produits',
+        icon: 'pi pi-barcode',
+        routerLink: ['/products/list']
+      },
+      {
+        label: 'Contact',
+        icon: 'pi pi-envelope',
+        routerLink: ['/contact']
+    }
     ]
   }
   
