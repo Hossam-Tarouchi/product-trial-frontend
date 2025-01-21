@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, inject, signal } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, inject, signal } from "@angular/core";
 import { Product } from "app/products/data-access/product.model";
 import { ProductsService } from "app/products/data-access/products.service";
 import { ProductFormComponent } from "app/products/ui/product-form/product-form.component";
@@ -10,6 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { BadgeModule } from 'primeng/badge';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
+import { ShoppingCartService } from "app/shoping_cart/data_access/shopping-cart.service";
 
 const emptyProduct: Product = {
   id: 0,
@@ -37,6 +38,7 @@ const emptyProduct: Product = {
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+  private readonly shoppingCartService = inject(ShoppingCartService);
 
   public readonly products = this.productsService.products;
 
@@ -79,5 +81,10 @@ export class ProductListComponent implements OnInit {
 
   private closeDialog() {
     this.isDialogVisible = false;
+  }
+
+  // Method to add product to the cart
+  addToCart(product: any) {
+    this.shoppingCartService.add(product).subscribe()
   }
 }

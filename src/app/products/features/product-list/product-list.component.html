@@ -66,6 +66,12 @@
                                     severity="danger" 
                                     (onClick)="onDelete(product)"
                                     [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"/>
+
+                                <p-button 
+                                    label="Ajouter au panier" 
+                                    severity="success" 
+                                    (onClick)="addToCart(product)" 
+                                    [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"/>
                             </div>
                         </ng-template>
                     </p-card>
