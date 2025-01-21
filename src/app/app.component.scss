@@ -2,3 +2,50 @@
     overflow: hidden;
     height: 100%;
 }
+
+/* Inside your component's CSS or styles.css */
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-item-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .cart-item img {
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+  
+  .item-details p {
+    margin: 0;
+  }
+  
+  .cart-total {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .cart-total button {
+    width: 100%;
+  }
+  
+  .empty-cart {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #FF5733; /* Adjust for visibility */
+    color: white;
+    font-weight: bold;
+}

@@ -6,7 +6,9 @@
         {{ title }}
     </div>
     <div class="p-toolbar-group-end">
-        <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+        <i class="pi pi-shopping-cart" style="font-size: 2rem" (click)="toggleCart()">
+            <p-badge *ngIf="shoppingCartproductsSignal().length > 0" [value]="shoppingCartproductsSignal().length" styleClass="cart-badge"></p-badge>
+        </i>
     </div>
 </p-toolbar>
 <p-splitter 
@@ -23,3 +25,28 @@
         </div>
     </ng-template>
 </p-splitter>
+
+<p-sidebar [(visible)]="cartVisible" position="right" [baseZIndex]="10000" [style]="{ width: '350px' }">
+    <h3>Shopping Cart</h3>
+
+    <div *ngFor="let item of shoppingCartproducts" class="cart-item">
+        <div class="cart-item-content">
+            <img src="https://placehold.co/20" alt="{{ item.name }}" style="width: 50px; height: 50px; object-fit: cover;" />
+            <div class="item-details">
+                <p>{{ item.name }}</p>
+                <p>${{ item.price.toFixed(2) }}</p>
+            </div>
+            <button pButton icon="pi pi-trash" class="p-button-danger" (click)="removeItemFromCart(item)" style="margin-left: 10px;"></button>
+        </div>
+    </div>
+
+    <div *ngIf="shoppingCartproducts.length > 0" class="cart-total">
+        <hr />
+        <p><strong>Total: ${{ totalPrice.toFixed(2) }}</strong></p>
+        <button pButton label="Checkout" icon="pi pi-check"></button>
+    </div>
+
+    <div *ngIf="shoppingCartproducts.length === 0" class="empty-cart">
+        <p>Your cart is empty.</p>
+    </div>
+</p-sidebar>
