@@ -1,0 +1,27 @@
+/* contact.component.css */
+.contact-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .p-field {
+    margin-bottom: 15px;
+  }
+  
+  .p-button {
+    width: 100%;
+  }
+  
+  .p-error {
+    font-size: 12px;
+    color: red;
+  }
+  

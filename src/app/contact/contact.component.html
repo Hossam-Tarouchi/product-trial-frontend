@@ -1,0 +1,43 @@
+<!-- contact.component.html -->
+<div class="contact-container">
+    <h2 class="text-center">Contactez-nous</h2>
+  
+    <!-- Contact Form -->
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="text" 
+          pInputText 
+          formControlName="email" 
+          [ngClass]="{'p-invalid': email?.invalid && email?.touched}" 
+        />
+        <div *ngIf="email?.invalid && email?.touched" class="p-error">
+          <small *ngIf="email?.errors?.['required']">Email is required.</small>
+          <small *ngIf="email?.errors?.['email']">Invalid email format.</small>
+        </div>
+      </div>
+  
+      <div class="p-field">
+        <label for="message">Message</label>
+        <textarea 
+          id="message" 
+          pInputTextarea 
+          rows="5" 
+          formControlName="message" 
+          [ngClass]="{'p-invalid': message?.invalid && message?.touched}">
+        </textarea>
+        <div *ngIf="message?.invalid && message?.touched" class="p-error">
+          <small *ngIf="message?.errors?.['required']">Message is required.</small>
+          <small *ngIf="message?.errors?.['maxlength']">Message must be less than 300 characters.</small>
+        </div>
+      </div>
+  
+      <p-button label="Envoyer" type="submit" [disabled]="contactForm.invalid"></p-button>
+    </form>
+  
+    <!-- Success/Error Message -->
+    <p-toast></p-toast>
+  </div>
+  
