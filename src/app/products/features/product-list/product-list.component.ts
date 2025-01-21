@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import { Component, OnInit, inject, signal } from "@angular/core";
 import { Product } from "app/products/data-access/product.model";
 import { ProductsService } from "app/products/data-access/products.service";
@@ -6,6 +7,9 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import { BadgeModule } from 'primeng/badge';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
 
 const emptyProduct: Product = {
   id: 0,
@@ -29,7 +33,7 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent],
+  imports: [CommonModule, DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, BadgeModule, RatingModule, FormsModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
